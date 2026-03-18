@@ -7,7 +7,7 @@
 #include "zhurin_i_gauss_kernel/common/include/common.hpp"
 
 #ifdef _OPENMP
-#include <omp.h>
+#  include <omp.h>
 #endif
 
 namespace zhurin_i_gauss_kernel {

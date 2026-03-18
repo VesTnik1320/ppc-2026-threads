@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+
 #include "task/include/task.hpp"
 #include "zhurin_i_gauss_kernel/common/include/common.hpp"
 
