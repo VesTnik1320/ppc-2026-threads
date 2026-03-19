@@ -57,7 +57,12 @@ bool ZhurinIGaussKernelOMP::RunImpl() {
   int base_width = w / np;
   int remainder = w % np;
 
-#pragma omp parallel for schedule(static) default(none) shared(w, h, base_width, remainder, np, kKernel, kShift)
+  // Локальные ссылки на поля класса
+  auto &local_padded = padded_;
+  auto &local_result = result_;
+
+#pragma omp parallel for schedule(static) default(none) \
+    shared(w, h, base_width, remainder, np, local_padded, local_result)
   for (int part = 0; part < np; ++part) {
     int part_width = base_width + (part < remainder ? 1 : 0);
     int x_start = part * base_width + std::min(part, remainder);
@@ -65,12 +70,12 @@ bool ZhurinIGaussKernelOMP::RunImpl() {
 
     for (int i = 1; i <= h; ++i) {
       for (int j = x_start + 1; j <= x_end; ++j) {
-        int sum = padded_[i - 1][j - 1] * kKernel[0][0] + padded_[i - 1][j] * kKernel[0][1] +
-                  padded_[i - 1][j + 1] * kKernel[0][2] + padded_[i][j - 1] * kKernel[1][0] +
-                  padded_[i][j] * kKernel[1][1] + padded_[i][j + 1] * kKernel[1][2] +
-                  padded_[i + 1][j - 1] * kKernel[2][0] + padded_[i + 1][j] * kKernel[2][1] +
-                  padded_[i + 1][j + 1] * kKernel[2][2];
-        result_[i - 1][j - 1] = sum >> kShift;
+        int sum = local_padded[i - 1][j - 1] * kKernel[0][0] + local_padded[i - 1][j] * kKernel[0][1] +
+                  local_padded[i - 1][j + 1] * kKernel[0][2] + local_padded[i][j - 1] * kKernel[1][0] +
+                  local_padded[i][j] * kKernel[1][1] + local_padded[i][j + 1] * kKernel[1][2] +
+                  local_padded[i + 1][j - 1] * kKernel[2][0] + local_padded[i + 1][j] * kKernel[2][1] +
+                  local_padded[i + 1][j + 1] * kKernel[2][2];
+        local_result[i - 1][j - 1] = sum >> kShift;
       }
     }
   }
