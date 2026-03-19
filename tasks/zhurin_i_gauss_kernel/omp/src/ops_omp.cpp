@@ -70,11 +70,11 @@ bool ZhurinIGaussKernelOMP::RunImpl() {
 
     for (int i = 1; i <= h; ++i) {
       for (int j = x_start + 1; j <= x_end; ++j) {
-        int sum = local_padded[i - 1][j - 1] * kKernel[0][0] + local_padded[i - 1][j] * kKernel[0][1] +
-                  local_padded[i - 1][j + 1] * kKernel[0][2] + local_padded[i][j - 1] * kKernel[1][0] +
-                  local_padded[i][j] * kKernel[1][1] + local_padded[i][j + 1] * kKernel[1][2] +
-                  local_padded[i + 1][j - 1] * kKernel[2][0] + local_padded[i + 1][j] * kKernel[2][1] +
-                  local_padded[i + 1][j + 1] * kKernel[2][2];
+        int sum = (local_padded[i - 1][j - 1] * kKernel[0][0]) + (local_padded[i - 1][j] * kKernel[0][1]) +
+                  (local_padded[i - 1][j + 1] * kKernel[0][2]) + (local_padded[i][j - 1] * kKernel[1][0]) +
+                  (local_padded[i][j] * kKernel[1][1]) + (local_padded[i][j + 1] * kKernel[1][2]) +
+                  (local_padded[i + 1][j - 1] * kKernel[2][0]) + (local_padded[i + 1][j] * kKernel[2][1]) +
+                  (local_padded[i + 1][j + 1] * kKernel[2][2]);
         local_result[i - 1][j - 1] = sum >> kShift;
       }
     }
