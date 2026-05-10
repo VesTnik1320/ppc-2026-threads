@@ -1,5 +1,3 @@
-
-
 #include <gtest/gtest.h>
 
 #include <array>
@@ -81,7 +79,7 @@ const std::array<TestCase, 6> kTestCases = {
       OutType(4, std::vector<int>(4, 0))}}};
 
 const auto kAllTasksList =
-    ppc::util::AddFuncTask<ZhurinIGausKernelSEQ, InType>(kTestCases, PPC_SETTINGS_zhurin_i_gaus_kernel);
+    ppc::util::AddFuncTask<ZhurinIGausKernelOMP, InType>(kTestCases, PPC_SETTINGS_zhurin_i_gaus_kernel);
 
 inline const auto kGtestValues = ppc::util::ExpandToValues(kAllTasksList);
 
@@ -98,7 +96,7 @@ TEST(ZhurinIGausKernelNegativeTest, InvalidWidth) {
   int parts = 1;
   std::vector<std::vector<int>> img(height, std::vector<int>(3, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelSEQ>(in);
+  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
   EXPECT_FALSE(task->Validation());
 }
 
@@ -108,7 +106,7 @@ TEST(ZhurinIGausKernelNegativeTest, InvalidHeight) {
   int parts = 1;
   std::vector<std::vector<int>> img(1, std::vector<int>(3, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelSEQ>(in);
+  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
   EXPECT_FALSE(task->Validation());
 }
 
@@ -118,7 +116,7 @@ TEST(ZhurinIGausKernelNegativeTest, InvalidPartsZero) {
   int parts = 0;
   std::vector<std::vector<int>> img(height, std::vector<int>(width, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelSEQ>(in);
+  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
   EXPECT_FALSE(task->Validation());
 }
 
@@ -128,7 +126,7 @@ TEST(ZhurinIGausKernelNegativeTest, InvalidPartsTooLarge) {
   int parts = 5;
   std::vector<std::vector<int>> img(height, std::vector<int>(width, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelSEQ>(in);
+  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
   EXPECT_FALSE(task->Validation());
 }
 
@@ -138,7 +136,7 @@ TEST(ZhurinIGausKernelNegativeTest, ImageRowsMismatch) {
   int parts = 1;
   std::vector<std::vector<int>> img(2, std::vector<int>(width, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelSEQ>(in);
+  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
   EXPECT_FALSE(task->Validation());
 }
 
@@ -148,7 +146,7 @@ TEST(ZhurinIGausKernelNegativeTest, ImageColsMismatch) {
   int parts = 1;
   std::vector<std::vector<int>> img(height, std::vector<int>(2, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelSEQ>(in);
+  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
   EXPECT_FALSE(task->Validation());
 }
 
