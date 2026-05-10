@@ -96,8 +96,10 @@ TEST(ZhurinIGausKernelNegativeTest, InvalidWidth) {
   int parts = 1;
   std::vector<std::vector<int>> img(height, std::vector<int>(3, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
-  EXPECT_FALSE(task->Validation());
+  auto task_omp = std::make_shared<ZhurinIGausKernelOMP>(in);
+  // auto task_seq= std::make_shared<ZhurinIGausKernelSEQ>(in);
+  EXPECT_FALSE(task_omp->Validation());
+  // EXPECT_FALSE(task_seq->Validation());
 }
 
 TEST(ZhurinIGausKernelNegativeTest, InvalidHeight) {
@@ -106,8 +108,10 @@ TEST(ZhurinIGausKernelNegativeTest, InvalidHeight) {
   int parts = 1;
   std::vector<std::vector<int>> img(1, std::vector<int>(3, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
-  EXPECT_FALSE(task->Validation());
+  auto task_omp = std::make_shared<ZhurinIGausKernelOMP>(in);
+  // auto task_seq= std::make_shared<ZhurinIGausKernelSEQ>(in);
+  EXPECT_FALSE(task_omp->Validation());
+  // EXPECT_FALSE(task_seq->Validation());
 }
 
 TEST(ZhurinIGausKernelNegativeTest, InvalidPartsZero) {
@@ -116,8 +120,10 @@ TEST(ZhurinIGausKernelNegativeTest, InvalidPartsZero) {
   int parts = 0;
   std::vector<std::vector<int>> img(height, std::vector<int>(width, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
-  EXPECT_FALSE(task->Validation());
+  auto task_omp = std::make_shared<ZhurinIGausKernelOMP>(in);
+  // auto task_seq= std::make_shared<ZhurinIGausKernelSEQ>(in);
+  EXPECT_FALSE(task_omp->Validation());
+  // EXPECT_FALSE(task_seq->Validation());
 }
 
 TEST(ZhurinIGausKernelNegativeTest, InvalidPartsTooLarge) {
@@ -126,8 +132,10 @@ TEST(ZhurinIGausKernelNegativeTest, InvalidPartsTooLarge) {
   int parts = 5;
   std::vector<std::vector<int>> img(height, std::vector<int>(width, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
-  EXPECT_FALSE(task->Validation());
+  auto task_omp = std::make_shared<ZhurinIGausKernelOMP>(in);
+  // auto task_seq= std::make_shared<ZhurinIGausKernelSEQ>(in);
+  EXPECT_FALSE(task_omp->Validation());
+  // EXPECT_FALSE(task_seq->Validation());
 }
 
 TEST(ZhurinIGausKernelNegativeTest, ImageRowsMismatch) {
@@ -136,8 +144,10 @@ TEST(ZhurinIGausKernelNegativeTest, ImageRowsMismatch) {
   int parts = 1;
   std::vector<std::vector<int>> img(2, std::vector<int>(width, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
-  EXPECT_FALSE(task->Validation());
+  auto task_omp = std::make_shared<ZhurinIGausKernelOMP>(in);
+  // auto task_seq= std::make_shared<ZhurinIGausKernelSEQ>(in);
+  EXPECT_FALSE(task_omp->Validation());
+  // EXPECT_FALSE(task_seq->Validation());
 }
 
 TEST(ZhurinIGausKernelNegativeTest, ImageColsMismatch) {
@@ -146,8 +156,10 @@ TEST(ZhurinIGausKernelNegativeTest, ImageColsMismatch) {
   int parts = 1;
   std::vector<std::vector<int>> img(height, std::vector<int>(2, 0));
   InType in = std::make_tuple(width, height, parts, img);
-  auto task = std::make_shared<ZhurinIGausKernelOMP>(in);
-  EXPECT_FALSE(task->Validation());
+  auto task_omp = std::make_shared<ZhurinIGausKernelOMP>(in);
+  // auto task_seq= std::make_shared<ZhurinIGausKernelSEQ>(in);
+  EXPECT_FALSE(task_omp->Validation());
+  // EXPECT_FALSE(task_seq->Validation());
 }
 
 }  // namespace
