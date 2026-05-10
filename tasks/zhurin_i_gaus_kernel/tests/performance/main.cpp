@@ -8,7 +8,7 @@
 
 #include "util/include/perf_test_util.hpp"
 #include "zhurin_i_gaus_kernel/common/include/common.hpp"
-#include "zhurin_i_gaus_kernel/seq/include/ops_seq.hpp"
+#include "zhurin_i_gaus_kernel/omp/include/ops_omp.hpp"
 
 namespace zhurin_i_gaus_kernel {
 
@@ -50,7 +50,7 @@ TEST_P(ZhurinIGausKernelPerfTests, RunPerfModes) {
 namespace {
 
 const auto kAllPerfTasks =
-    ppc::util::MakeAllPerfTasks<InType, ZhurinIGausKernelSEQ>(PPC_SETTINGS_zhurin_i_gaus_kernel_seq);
+    ppc::util::MakeAllPerfTasks<InType, ZhurinIGausKernelOMP>(PPC_SETTINGS_zhurin_i_gaus_kernel);
 
 const auto kGtestValues = ppc::util::TupleToGTestValues(kAllPerfTasks);
 

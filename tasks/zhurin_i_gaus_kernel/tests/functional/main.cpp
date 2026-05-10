@@ -13,7 +13,7 @@
 #include "task/include/task.hpp"
 #include "util/include/func_test_util.hpp"
 #include "zhurin_i_gaus_kernel/common/include/common.hpp"
-#include "zhurin_i_gaus_kernel/seq/include/ops_seq.hpp"
+#include "zhurin_i_gaus_kernel/omp/include/ops_omp.hpp"
 
 namespace zhurin_i_gaus_kernel {
 
